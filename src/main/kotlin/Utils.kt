@@ -11,6 +11,7 @@ object Utils {
             return file.readText()
         }
 
+        @Suppress("DEPRECATION")
         val url = URL("https://adventofcode.com/2024/day/${day}/input")
         val connection = url.openConnection() as HttpURLConnection
         connection.setRequestProperty("accept", "text/plain")
@@ -18,7 +19,7 @@ object Utils {
             "cookie",
             "session=REPLACE_ME"
         )
-        val text = connection.inputStream.bufferedReader().readText()
+        val text = connection.inputStream.bufferedReader().readText().trimIndent()
         file.writeText(text)
         return text
     }
