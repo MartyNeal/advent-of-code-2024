@@ -24,3 +24,16 @@ object Utils {
         return text
     }
 }
+
+fun <T> Sequence<T>.takeWhileInclusive(pred: (T) -> Boolean): Sequence<T> {
+    var shouldContinue = true
+    return takeWhile {
+        val result = shouldContinue
+        shouldContinue = pred(it)
+        result
+    }
+}
+
+fun <T> Sequence<T>.takeUntilInclusive(pred: (T) -> Boolean): Sequence<T> {
+    return takeWhileInclusive { !pred(it) }
+}
