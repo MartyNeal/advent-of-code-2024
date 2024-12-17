@@ -14,11 +14,9 @@ object Utils {
         @Suppress("DEPRECATION")
         val url = URL("https://adventofcode.com/2024/day/${day}/input")
         val connection = url.openConnection() as HttpURLConnection
+        val sessionID = System.getenv("AOC_SESSION_ID") ?: error("AOC_SESSION_ID not set")
         connection.setRequestProperty("accept", "text/plain")
-        connection.setRequestProperty(
-            "cookie",
-            "session=REPLACE_ME"
-        )
+        connection.setRequestProperty("cookie", "session=${sessionID}")
         val text = connection.inputStream.bufferedReader().readText().trimIndent()
         file.writeText(text)
         return text
